@@ -1,0 +1,26 @@
+.letter-container {
+    font-size: 50px;
+    border: 3px solid red;
+    float: left;
+    height: 1.6em;
+    width: 1.6em;
+    padding: 5px;
+    margin: 0.1em;
+}
+
+.letter-container.show-marking-green{
+    background-color: forestgreen;
+}
+
+.letter-container.show-marking-yellow{
+    background-color: orange;
+}
+
+.letter-container.show-marking-black{
+    background-color: black;
+}
+
+.letter {
+    margin: 5px;
+    text-align: center;
+}

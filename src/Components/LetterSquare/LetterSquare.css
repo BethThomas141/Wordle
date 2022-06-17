@@ -1,11 +1,30 @@
 .letter-container {
     font-size: 50px;
-    border: 3px solid red;
+    border: 3px solid dimgrey;
     float: left;
-    height: 1.6em;
-    width: 1.6em;
+    height: 2em;
+    width: 2em;
     padding: 5px;
     margin: 0.1em;
+    box-sizing: border-box;
+    transition: background-color;
+}
+
+.letter-container:nth-child(2) {
+    transition-delay: 100ms;
+}
+.letter-container:nth-child(3) {
+    transition-delay: 200ms;
+}
+.letter-container:nth-child(4) {
+    transition-delay: 300ms;
+}
+.letter-container:nth-child(5) {
+    transition-delay: 400ms;
+}
+
+.letter-container.active {
+    border: 5px solid dimgrey;
 }
 
 .letter-container.show-marking-green{

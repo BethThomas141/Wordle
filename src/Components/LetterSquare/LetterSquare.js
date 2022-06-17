@@ -1,9 +1,9 @@
 import './LetterSquare.css';
 
-function LetterSquare({letterInput, showMarking, markingColour}) {
+function LetterSquare({letterInput, showMarking, markingColour, isActive, squareId}) {
 
     return (
-        <div className={`letter-container ${showMarking ? "show-marking-" + markingColour: " "}`}>
+        <div className={`letter-container delay-${squareId} ${isActive ? "active" : ""} ${showMarking ? "show-marking-" + markingColour: " "}`}>
             <p className="letter">
                 {letterInput}
             </p>

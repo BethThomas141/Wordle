@@ -2,11 +2,11 @@ import './LetterRow.css';
 import LetterSquare from "../LetterSquare/LetterSquare";
 import {useState, useEffect} from "react";
 
-function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, setHasFailed, answerLength}) {
+function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isCorrect, setHasFailed, answerLength}) {
     const [activeSquare, setActiveSquare] = useState(null);
     const [currentString, setCurrentString] = useState("")
     const [showMarking, setShowMarking] = useState(false)
-    const [colourArray, setColourArray] = useState(["black", "black", "black", "black", "black"])
+    const [colourArray, setColourArray] = useState([])
     const [konamiCount, setKonamiCount] = useState(0);
 
     useEffect(() => {
@@ -14,11 +14,12 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, set
             setActiveSquare(0);
         }
     }, [isActive]);
-
+    const konamiArray = ["l", "a", "v", "a"]
+    const keycodeArray = [76, 65, 86, 65]
     const indexes = [...Array(answerLength).keys()]
     const handleUserKeyPress = event => {
+        const {key, keyCode} = event;
         if (isActive) {
-            const {key, keyCode} = event;
             if (keyCode !== 32) {
                 setKonamiCount(0)
             }
@@ -66,7 +67,6 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, set
                 setActiveRow(activeRow + 1);
                 if (currentString === answer) {
                     setIsCorrect(true)
-                    setActiveRow(null)
                 }
             }
 

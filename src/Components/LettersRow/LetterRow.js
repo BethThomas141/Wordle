@@ -2,7 +2,7 @@ import './LetterRow.css';
 import LetterSquare from "../LetterSquare/LetterSquare";
 import {useState, useEffect} from "react";
 
-function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, setHasFailed}) {
+function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, setHasFailed, answerLength}) {
     const [activeSquare, setActiveSquare] = useState(null);
     const [currentString, setCurrentString] = useState("")
     const [showMarking, setShowMarking] = useState(false)
@@ -15,14 +15,14 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, set
         }
     }, [isActive]);
 
-    const indexes = [0,1,2,3,4]
+    const indexes = [...Array(answerLength).keys()]
     const handleUserKeyPress = event => {
         if (isActive) {
             const {key, keyCode} = event;
             if (keyCode !== 32) {
                 setKonamiCount(0)
             }
-            if ((keyCode >= 65 && keyCode <= 90) && currentString.length < 5) {
+            if ((keyCode >= 65 && keyCode <= 90) && currentString.length < answerLength) {
                 setCurrentString(`${currentString}${key.toLowerCase()}`);
                 setActiveSquare(activeSquare + 1);
             }
@@ -32,19 +32,31 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, set
                 setCurrentString(currentString.slice(0, -1));
             }
 
-            if (event.key === "Enter" && currentString.length === 5) {
-                let colour_array = [null, null, null, null, null]
-                for (let i = 0; i < 5; i++) {
-                    if (currentString[i] === answer[i] && (currentString.indexOf(currentString[i]) === i)) {
+            if (event.key === "Enter" && currentString.length === answerLength) {
+                let colour_array = Array(answerLength).fill(null)
+                let green_letters = [];
+                let yellow_letters = [];
+                for (let i = 0; i < answerLength; i++) {
+                    let candidateLetter = currentString[i];
+                    let l = new RegExp(candidateLetter, 'g');
+                    if (candidateLetter === answer[i]) {
                         colour_array[i] = "green"
-                    } else if (answer.includes(currentString[i]) && (currentString.indexOf(currentString[i]) === i)) {
+                        green_letters.push(candidateLetter)
+                    }}
+                for (let i = 0; i < answerLength; i++) {
+                    let candidateLetter = currentString[i];
+                    let l = new RegExp(candidateLetter, 'g');
+                    if (colour_array[i] == "green") {continue}
+                   else if (answer.includes(candidateLetter) && ((answer.match(l) || []).length > (green_letters.filter(x => x==candidateLetter).length) + yellow_letters.filter(x => x==candidateLetter).length))
+                    {
+                        console.log("answer", (answer.match(l) || []).length)
+                        console.log(green_letters.filter(x => x==candidateLetter).length)
+                        console.log(yellow_letters.filter(x => x==candidateLetter).length)
                         colour_array[i] = "yellow"
+                        yellow_letters.push(candidateLetter)
                     } else {
                         colour_array[i] = "black"
                     }
-                }
-                if (currentString === answer) {
-                    setIsCorrect(true)
                 }
                 if (currentString !== answer && activeRow === 5) {
                     setHasFailed(true)
@@ -52,15 +64,21 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, set
                 setColourArray(colour_array);
                 setShowMarking(true);
                 setActiveRow(activeRow + 1);
+                if (currentString === answer) {
+                    setIsCorrect(true)
+                    setActiveRow(null)
+                }
             }
 
             if (keyCode === 32) {
                 setKonamiCount(konamiCount + 1);
                 if (konamiCount === 4) {
                     setIsCorrect(true);
+                    setActiveRow(null);
                     setCurrentString(answer);
-                    setColourArray(["green", "green", "green", "green", "green"])
+                    setColourArray(Array(answerLength).fill("green"))
                     setShowMarking(true);
+                    setActiveRow(activeRow + 1);
                 }
             }
         }

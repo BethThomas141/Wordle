@@ -1,5 +1,5 @@
 .letter-container {
-    font-size: 50px;
+    font-size: 46px;
     border: 3px solid dimgrey;
     float: left;
     height: 2em;
@@ -21,6 +21,18 @@
 }
 .letter-container:nth-child(5) {
     transition-delay: 400ms;
+}
+.letter-container:nth-child(6) {
+    transition-delay: 500ms;
+}
+.letter-container:nth-child(7) {
+    transition-delay: 600ms;
+}
+.letter-container:nth-child(8) {
+    transition-delay: 700ms;
+}
+.letter-container:nth-child(9) {
+    transition-delay: 800ms;
 }
 
 .letter-container.active {

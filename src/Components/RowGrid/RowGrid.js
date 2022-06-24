@@ -10,7 +10,9 @@ function RowGrid() {
     const [hasFailed, setHasFailed] = useState(0);
     const [answer, setAnswer] = useState(null);
     const rowIndexes = [0,1,2,3,4,5];
-    const answerList = ["plant", "train", "space", "alien", "house", "prank", "phone", "spike", "crust", "comet", "spend", "pound", "think", "clown", "trunk", "earth", "lunch", "extra"];
+    const elexonAnswers = ["elexon", "itsdo", "indo", "forecast", "indicated", "demand", "bmrs", "bmunit", "generation", "fuelhh", "indgen", "melngc", "tsdf", "lavalamp", "windfor", "tsdfw", "margin", "surplus", "qalex", "iris", "generals", "autopets", "sprint"];
+    const normalAnswerList = ["plant", "train", "space", "alien", "house", "prank", "phone", "spike", "crust", "comet", "spend", "pound", "think", "clown", "trunk", "earth", "lunch", "extra"];
+    const answerList = ["elexon"]
 
     useEffect(() => {
         if (answer === null) {
@@ -21,10 +23,13 @@ function RowGrid() {
 
     return (
         <>
-        <div className="square-container">
+            <h1>Elexondle</h1>
+            <div className="submission-text">
         {isCorrect ? <p>Hooray! You got it in <b>{activeRow}</b> {activeRow === 1 ? "guess" : "guesses"}! <FontAwesomeIcon icon={faArrowsRotate} onClick={() => window.location.reload()}/></p> : ""}
         {hasFailed ? <p>The answer was <b>{answer}</b> :( <FontAwesomeIcon icon={faArrowsRotate} onClick={() => window.location.reload()} size="xs"/></p> : ""}
-        {rowIndexes.map((id) => <LetterRow key={id} setHasFailed={setHasFailed} setIsCorrect={setIsCorrect} answer={answer} activeRow={activeRow} setActiveRow={setActiveRow} isActive={activeRow === id}/>)}
+            </div>
+            <div className="square-container">
+        {rowIndexes.map((id) => <LetterRow key={id} setHasFailed={setHasFailed} setIsCorrect={setIsCorrect} answer={answer} answerLength={answer?.length} activeRow={activeRow} setActiveRow={setActiveRow} isActive={activeRow === id}/>)}
     </div></>)
 }
 

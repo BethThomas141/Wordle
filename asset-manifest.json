@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/elexondle/static/css/main.fd5edc43.css",
+    "main.js": "/elexondle/static/js/main.2762aed2.js",
+    "static/js/787.e01666d6.chunk.js": "/elexondle/static/js/787.e01666d6.chunk.js",
+    "index.html": "/elexondle/index.html",
+    "main.fd5edc43.css.map": "/elexondle/static/css/main.fd5edc43.css.map",
+    "main.2762aed2.js.map": "/elexondle/static/js/main.2762aed2.js.map",
+    "787.e01666d6.chunk.js.map": "/elexondle/static/js/787.e01666d6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd5edc43.css",
+    "static/js/main.2762aed2.js"
+  ]
+}

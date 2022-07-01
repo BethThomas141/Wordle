@@ -2,7 +2,7 @@ import './LetterRow.css';
 import LetterSquare from "../LetterSquare/LetterSquare";
 import {useState, useEffect} from "react";
 
-function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isCorrect, setHasFailed, answerLength}) {
+function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, setHasFailed, answerLength}) {
     const [activeSquare, setActiveSquare] = useState(null);
     const [currentString, setCurrentString] = useState("")
     const [showMarking, setShowMarking] = useState(false)
@@ -14,8 +14,6 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isC
             setActiveSquare(0);
         }
     }, [isActive]);
-    const konamiArray = ["l", "a", "v", "a"]
-    const keycodeArray = [76, 65, 86, 65]
     const indexes = [...Array(answerLength).keys()]
     const handleUserKeyPress = event => {
         const {key, keyCode} = event;
@@ -39,7 +37,6 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isC
                 let yellow_letters = [];
                 for (let i = 0; i < answerLength; i++) {
                     let candidateLetter = currentString[i];
-                    let l = new RegExp(candidateLetter, 'g');
                     if (candidateLetter === answer[i]) {
                         colour_array[i] = "green"
                         green_letters.push(candidateLetter)
@@ -47,12 +44,12 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isC
                 for (let i = 0; i < answerLength; i++) {
                     let candidateLetter = currentString[i];
                     let l = new RegExp(candidateLetter, 'g');
-                    if (colour_array[i] == "green") {continue}
-                   else if (answer.includes(candidateLetter) && ((answer.match(l) || []).length > (green_letters.filter(x => x==candidateLetter).length) + yellow_letters.filter(x => x==candidateLetter).length))
+                    if (colour_array[i] === "green") {continue}
+                   else if (answer.includes(candidateLetter) && ((answer.match(l) || []).length > (green_letters.filter(x => x===candidateLetter).length) + yellow_letters.filter(x => x===candidateLetter).length))
                     {
                         console.log("answer", (answer.match(l) || []).length)
-                        console.log(green_letters.filter(x => x==candidateLetter).length)
-                        console.log(yellow_letters.filter(x => x==candidateLetter).length)
+                        console.log(green_letters.filter(x => x===candidateLetter).length)
+                        console.log(yellow_letters.filter(x => x===candidateLetter).length)
                         colour_array[i] = "yellow"
                         yellow_letters.push(candidateLetter)
                     } else {
@@ -70,17 +67,17 @@ function LetterRow({answer, activeRow, setActiveRow, isActive, setIsCorrect, isC
                 }
             }
 
-            if (keyCode === 32) {
-                setKonamiCount(konamiCount + 1);
-                if (konamiCount === 4) {
-                    setIsCorrect(true);
-                    setActiveRow(null);
-                    setCurrentString(answer);
-                    setColourArray(Array(answerLength).fill("green"))
-                    setShowMarking(true);
-                    setActiveRow(activeRow + 1);
-                }
-            }
+            // if (keyCode === 32) {
+            //     setKonamiCount(konamiCount + 1);
+            //     if (konamiCount === 4) {
+            //         setIsCorrect(true);
+            //         setActiveRow(null);
+            //         setCurrentString(answer);
+            //         setColourArray(Array(answerLength).fill("green"))
+            //         setShowMarking(true);
+            //         setActiveRow(activeRow + 1);
+            //     }
+            // }
         }
     };
 

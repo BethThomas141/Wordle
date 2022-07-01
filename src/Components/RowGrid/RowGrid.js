@@ -13,7 +13,7 @@ function RowGrid({showLavalamps, setShowLavalamps}) {
     const konamiString = "lavalamps"
     const keycodeArray = [76, 65, 86, 65, 76, 65, 77, 80, 83]
     const rowIndexes = [0,1,2,3,4,5];
-    const elexonAnswers = ["elexon", "itsdo", "indo", "forecast", "indicated", "demand", "bmrs", "bmunit", "fuelhh", "indgen", "melngc", "tsdf", "windfor", "retro", "tsdfw", "margin", "surplus", "qalex", "iris", "generals", "autopets", "sprint", "zaahir", "reza", "robin", "lukasz"];
+    const elexonAnswers = ["elexon", "itsdo", "indo", "forecast", "indicated", "outturn", "data", "demand", "bmrs", "bmunit", "fuelhh", "indgen", "melngc", "tsdf", "bmrs", "retro", "wind", "margin", "surplus", "qalex", "iris", "generals", "autopets", "sprint", "zaahir", "reza", "robin", "lukasz", "insights"];
     const normalAnswerList = ["plant", "train", "space", "alien", "house", "prank", "phone", "spike", "crust", "comet", "spend", "pound", "think", "clown", "trunk", "earth", "lunch", "extra"];
     const answerList = elexonAnswers
     let currentKonamiString = ""
@@ -26,13 +26,8 @@ function RowGrid({showLavalamps, setShowLavalamps}) {
 
     const handleUserKeyPress = event => {
         const {key, keyCode} = event;
-        console.log("just pressed", keyCode)
-        console.log("current Konami string", currentKonamiString)
-        console.log("compare to:", keycodeArray[currentKonamiString.length])
         if (keyCode === keycodeArray[currentKonamiString.length] ) {
-            console.log("true")
             currentKonamiString = `${currentKonamiString}${key.toLowerCase()}`
-            console.log(currentKonamiString)
             if (konamiString === currentKonamiString) {
                 setShowLavalamps(true)
             }
@@ -46,14 +41,14 @@ function RowGrid({showLavalamps, setShowLavalamps}) {
         };
 
     useEffect(() => {
-        if (isCorrect) {
+        if (isCorrect || hasFailed) {
             window.addEventListener('keydown', handleUserKeyPress);
 
             return () => {
                 window.removeEventListener('keydown', handleUserKeyPress);
             };
         }
-    }, [isCorrect]);
+    }, [isCorrect, hasFailed]);
 
     return (
         <>
